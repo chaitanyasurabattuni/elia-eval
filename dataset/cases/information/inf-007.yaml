@@ -1,0 +1,15 @@
+id: inf-007
+category: information
+suite: [full]
+request: "Am I hitting my protein goals?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: interrogative
+    intent_subtype: insight
+  actions_taken:
+    type: dict
+quality:
+  invoke_judge: true

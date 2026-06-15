@@ -1,0 +1,15 @@
+id: inf-005
+category: information
+suite: [full]
+request: "How many calories have I had today?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: interrogative
+    intent_subtype: get_specific_information
+  actions_taken:
+    type: dict
+quality:
+  must_not_contain: ["error"]

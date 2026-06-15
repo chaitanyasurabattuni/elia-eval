@@ -1,0 +1,15 @@
+id: inf-003
+category: information
+suite: [full]
+request: "how many grams of protein have I eaten in the past 24 hours?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: interrogative
+    intent_subtype: get_specific_information
+  actions_taken:
+    type: dict
+quality:
+  must_not_contain: ["error"]

@@ -1,0 +1,15 @@
+id: rec-007
+category: recommendations
+suite: [full]
+request: "What meal do you recommend I eat for lunch?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: interrogative
+    intent_subtype: recommendation
+  actions_taken:
+    type: list
+quality:
+  invoke_judge: true

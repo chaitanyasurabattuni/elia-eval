@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["id", "category", "suite", "request", "expected"],
+  "properties": {
+    "id": { "type": "string" },
+    "category": { "type": "string", "enum": ["meal_logging", "meal_scoring", "recommendations", "information", "multi_phrase"] },
+    "suite": { "type": "array", "items": { "type": "string" } },
+    "regression_sentinel": { "type": "boolean", "default": false },
+    "request": { "type": "string" },
+    "user_id": { "type": "integer", "default": 1 },
+    "user_name": { "type": "string", "default": "Demo" },
+    "expected": {
+      "type": "object",
+      "required": ["semantic"],
+      "properties": {
+        "semantic": {
+          "type": "object",
+          "required": ["domain", "intent"],
+          "properties": {
+            "domain": { "type": "string" },
+            "intent": { "type": "string", "enum": ["declarative", "interrogative", "action_request", "edit"] },
+            "intent_subtype": { "type": ["string", "null"] }
+          }
+        },
+        "actions_taken": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["null", "list", "dict"] },
+            "has_keys": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "properties": {
+        "must_not_contain": { "type": "array", "items": { "type": "string" } },
+        "must_acknowledge_food": { "type": "boolean" },
+        "invoke_judge": { "type": "boolean", "default": false }
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

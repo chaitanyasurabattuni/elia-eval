@@ -1,0 +1,15 @@
+id: inf-002
+category: information
+suite: [full]
+request: "when was my last meal?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: interrogative
+    intent_subtype: get_specific_information
+  actions_taken:
+    type: dict
+quality:
+  must_not_contain: ["error"]

@@ -1,0 +1,16 @@
+id: ms-003
+category: meal_scoring
+suite: [full]
+request: "was my breakfast healthy today?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: interrogative
+    intent_subtype: insight
+  actions_taken:
+    type: dict
+    has_keys: [nutrition]
+quality:
+  invoke_judge: true

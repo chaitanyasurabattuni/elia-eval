@@ -1,0 +1,14 @@
+id: mp-005
+category: multi_phrase
+suite: [full]
+request: "I'd like to log my most recent meal."
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: action_request
+    intent_subtype: null
+  actions_taken:
+    type: "null"
+notes: "Action request with no food context"

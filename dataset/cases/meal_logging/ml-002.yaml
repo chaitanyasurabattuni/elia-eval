@@ -1,0 +1,18 @@
+id: ml-002
+category: meal_logging
+suite: [smoke, full]
+regression_sentinel: true
+request: "i ate one serving of eggs today for breakfast."
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: declarative
+    intent_subtype: null
+  actions_taken:
+    type: dict
+    has_keys: [what, when, meal_type]
+quality:
+  must_not_contain: ["error", "I don't know"]
+  must_acknowledge_food: true

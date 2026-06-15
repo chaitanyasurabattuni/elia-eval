@@ -1,0 +1,14 @@
+id: ml-012
+category: meal_logging
+suite: [full]
+request: "I want to log my meal."
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: action_request
+    intent_subtype: null
+  actions_taken:
+    type: "null"
+notes: "Action request to log — no food specified yet"

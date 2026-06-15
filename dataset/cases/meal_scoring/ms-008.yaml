@@ -1,0 +1,15 @@
+id: ms-008
+category: meal_scoring
+suite: [full]
+request: "How many calories are in a banana?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: interrogative
+    intent_subtype: get_specific_information
+  actions_taken:
+    type: dict
+quality:
+  invoke_judge: false

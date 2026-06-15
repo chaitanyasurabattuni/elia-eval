@@ -1,0 +1,17 @@
+id: mp-004
+category: multi_phrase
+suite: [full]
+request: "Let's see, i had a slice of toast for breakfast, oh also i had some eggs because i got hungry!"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: declarative
+    intent_subtype: null
+  actions_taken:
+    type: dict
+    has_keys: [what, meal_type]
+quality:
+  must_acknowledge_food: true
+notes: "Casual multi-item phrasing from eval_complex_queries.py"

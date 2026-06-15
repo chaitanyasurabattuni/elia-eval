@@ -1,0 +1,18 @@
+id: rec-001
+category: recommendations
+suite: [smoke, full]
+regression_sentinel: true
+request: "What do you recommend I eat?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: interrogative
+    intent_subtype: recommendation
+  actions_taken:
+    type: list
+quality:
+  invoke_judge: true
+  must_not_contain: ["error", "cannot", "I don't know"]
+notes: "Core recommendation case from test_pipeline.py"

@@ -1,0 +1,14 @@
+id: inf-008
+category: information
+suite: [full]
+request: "where was I yesterday?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: lifestyle
+    intent: interrogative
+    intent_subtype: get_specific_information
+  actions_taken:
+    type: "null"
+notes: "Out-of-scope query — should return null actions"

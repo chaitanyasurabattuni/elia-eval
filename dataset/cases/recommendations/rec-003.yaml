@@ -1,0 +1,15 @@
+id: rec-003
+category: recommendations
+suite: [full]
+request: "Recommend me something for breakfast"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: interrogative
+    intent_subtype: recommendation
+  actions_taken:
+    type: list
+quality:
+  invoke_judge: true

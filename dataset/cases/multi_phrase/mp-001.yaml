@@ -1,0 +1,18 @@
+id: mp-001
+category: multi_phrase
+suite: [smoke, full]
+regression_sentinel: true
+request: "I ate an apple for breakfast. How was that?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: declarative
+    intent_subtype: null
+  actions_taken:
+    type: dict
+quality:
+  invoke_judge: true
+  must_acknowledge_food: true
+notes: "Log + score in one query"

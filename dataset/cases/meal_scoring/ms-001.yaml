@@ -1,0 +1,19 @@
+id: ms-001
+category: meal_scoring
+suite: [smoke, full]
+regression_sentinel: true
+request: "What meal score do I get for eggs and potatoes for breakfast?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: interrogative
+    intent_subtype: insight
+  actions_taken:
+    type: dict
+    has_keys: [nutrition]
+quality:
+  invoke_judge: true
+  must_not_contain: ["error", "cannot"]
+notes: "Core meal scoring case"

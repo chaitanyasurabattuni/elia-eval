@@ -1,0 +1,16 @@
+id: inf-001
+category: information
+suite: [smoke, full]
+regression_sentinel: true
+request: "how much did I sleep last night?"
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: sleep
+    intent: interrogative
+    intent_subtype: get_specific_information
+  actions_taken:
+    type: dict
+quality:
+  must_not_contain: ["error", "cannot"]

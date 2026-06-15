@@ -1,0 +1,16 @@
+id: mp-002
+category: multi_phrase
+suite: [full]
+request: "I ate some apple sauce for breakfast. Then I ate an egg sandwich for lunch."
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: declarative
+    intent_subtype: null
+  actions_taken:
+    type: dict
+quality:
+  must_acknowledge_food: true
+notes: "Two meal logs in one query"

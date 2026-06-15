@@ -1,0 +1,16 @@
+id: ml-007
+category: meal_logging
+suite: [full]
+request: "I ate some apple sauce for breakfast."
+user_id: 1
+user_name: Demo
+expected:
+  semantic:
+    domain: nutrition
+    intent: declarative
+    intent_subtype: null
+  actions_taken:
+    type: dict
+    has_keys: [what, meal_type]
+quality:
+  must_acknowledge_food: true

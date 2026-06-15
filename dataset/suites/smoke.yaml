@@ -1,0 +1,10 @@
+# Fast sentinel suite — runs on every push, must complete in < 2 min
+cases:
+  - ml-001
+  - ml-002
+  - ms-001
+  - rec-001
+  - inf-001
+  - mp-001
+  - ml-008
+  - rec-001
