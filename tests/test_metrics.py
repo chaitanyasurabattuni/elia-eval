@@ -3,11 +3,12 @@ from src.eval.metrics import MetricsEngine, CaseResult, RunMetrics
 from src.eval.assertions import AssertionFailure
 
 
-def _make_case_result(passed=True, latency_ms=300, cost_usd=0.001, category="meal_logging", failures=None):
+def _make_case_result(passed=True, semantic_passed=None, latency_ms=300, cost_usd=0.001, category="meal_logging", failures=None):
     return CaseResult(
         case_id="test-001",
         category=category,
         passed=passed,
+        semantic_passed=semantic_passed if semantic_passed is not None else passed,
         assertion_failures=failures or [],
         latency_ms=latency_ms,
         cost_usd=cost_usd,

@@ -6,9 +6,10 @@ from src.eval.metrics import CaseResult
 
 
 class EvalRunner:
-    def __init__(self, client: EliaClient, judge: Optional[ResponseJudge] = None):
+    def __init__(self, client: EliaClient, judge: Optional[ResponseJudge] = None, layer: str = "full"):
         self._client = client
         self._judge = judge
+        self._layer = layer
 
     def run_case(self, case: dict) -> CaseResult:
         result = self._client.call(
@@ -17,8 +18,12 @@ class EvalRunner:
             user_name=case.get("user_name", "Demo"),
         )
 
-        failures = AssertionEngine.run(result, case)
+        failures = AssertionEngine.run(result, case, layer=self._layer)
         passed = len(failures) == 0
+
+        # Semantic accuracy is always computed independently of layer
+        sem_failures = AssertionEngine.run(result, case, layer="semantic")
+        semantic_passed = len(sem_failures) == 0
 
         judge_score = None
         if self._judge and result.text:
@@ -34,6 +39,7 @@ class EvalRunner:
             case_id=case["id"],
             category=case.get("category", "unknown"),
             passed=passed,
+            semantic_passed=semantic_passed,
             assertion_failures=failures,
             latency_ms=result.latency_ms,
             cost_usd=result.cost_usd,
