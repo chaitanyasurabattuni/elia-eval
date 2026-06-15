@@ -1,0 +1,91 @@
+name: Elia LLM Eval
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'agents/**'
+      - 'health_intelligence/**'
+      - 'engines/**'
+      - 'scoring/**'
+      - 'routes/**'
+      - 'models/**'
+      - 'modules/**'
+
+jobs:
+  detect-scope:
+    runs-on: ubuntu-latest
+    outputs:
+      suite: ${{ steps.detect.outputs.suite }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: chaitanyasurabattuni/elia-eval
+          path: elia-eval
+          token: ${{ secrets.EVAL_REPO_TOKEN }}
+      - id: detect
+        working-directory: elia-eval
+        run: |
+          pip install pyyaml
+          python scripts/detect_scope.py
+
+  eval:
+    needs: detect-scope
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: elia-pathfinder
+
+      - uses: actions/checkout@v4
+        with:
+          repository: chaitanyasurabattuni/elia-eval
+          path: elia-eval
+          token: ${{ secrets.EVAL_REPO_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Elia dependencies
+        working-directory: elia-pathfinder
+        run: pip install -r requirements.txt
+
+      - name: Install eval dependencies
+        working-directory: elia-eval
+        run: pip install -e ".[dev]"
+
+      - name: Set PYTHONPATH for Elia
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE/elia-pathfinder" >> $GITHUB_ENV
+
+      - name: Run eval suite
+        id: eval_run
+        working-directory: elia-eval
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python -m cli.main run \
+            --suite ${{ needs.detect-scope.outputs.suite }} \
+            --mode testclient \
+            --commit ${{ github.event.pull_request.head.sha }} \
+            --branch ${{ github.head_ref }} \
+            --db results/eval.db
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Post PR comment
+        if: always()
+        working-directory: elia-eval
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
+        run: python scripts/post_pr_comment.py
+
+      - name: Fail if gate failed
+        if: steps.eval_run.outputs.exit_code != '0'
+        run: |
+          echo "Eval gate failed. Check PR comment for details."
+          exit 1
