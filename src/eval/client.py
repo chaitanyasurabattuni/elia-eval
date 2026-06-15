@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import time as dtime
 from enum import Enum
 from typing import Any, Dict, Optional
 import time
@@ -61,6 +62,40 @@ class EliaCallResult:
         return (inp * INPUT_TOKEN_COST_PER_M + out * OUTPUT_TOKEN_COST_PER_M) / 1_000_000
 
 
+def _seed_test_data(db) -> None:
+    """Inject realistic test data so eval cases that query user history work."""
+    try:
+        from database.model import LoggedSleep, User
+        user = db.session.query(User).filter(User.id == 1).first()
+        if user is None:
+            return
+        existing = db.session.query(LoggedSleep).filter(LoggedSleep.user_id == 1).count()
+        if existing > 0:
+            return
+        sleep = LoggedSleep(
+            user_id=1,
+            sleep_day_id=1,
+            bedtime=dtime(23, 15),
+            wake_time=dtime(7, 30),
+            time_in_bed_hours=8.25,
+            total_sleep_hours=7.5,
+            sleep_efficiency=90.9,
+            sleep_latency_minutes=10,
+            rem_minutes=105,
+            deep_minutes=90,
+            light_minutes=240,
+            awake_minutes=30,
+            number_awakenings=3,
+            resting_hr_bpm=58,
+            hrv_rmssd_ms=42,
+            sleep_score=82,
+        )
+        db.session.add(sleep)
+        db.session.commit()
+    except Exception:
+        pass  # Never crash the eval over missing test data
+
+
 class EliaClient:
     def __init__(self, mode: EliaClientMode = EliaClientMode.HTTP, base_url: str = "http://localhost:8001"):
         self.mode = mode
@@ -69,9 +104,10 @@ class EliaClient:
 
     def _get_testclient(self):
         if self._tc is None:
-            from routes.api import app
+            from routes.api import app, db
             from fastapi.testclient import TestClient
             self._tc = TestClient(app)
+            _seed_test_data(db)
         return self._tc
 
     def call(self, user_request: str, user_id: int = 1, user_name: str = "Demo") -> EliaCallResult:
