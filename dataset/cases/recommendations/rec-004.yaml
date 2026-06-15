@@ -7,7 +7,7 @@ user_name: Demo
 expected:
   semantic:
     domain: nutrition
-    intent: interrogative
+    intent: ask
     intent_subtype: recommendation
   actions_taken:
     type: list

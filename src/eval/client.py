@@ -22,10 +22,26 @@ class EliaCallResult:
 
     @property
     def semantic(self) -> Optional[Dict]:
+        # Dev branch: semantic lives in debug_data.semantic with domain in phrases[0].health_domain
+        debug = self.raw.get("debug_data") or {}
+        sem = debug.get("semantic")
+        if sem:
+            # Extract domain from phrases if top-level domain is null
+            if sem.get("domain") is None:
+                phrases = sem.get("phrases") or []
+                if phrases:
+                    health_domain = (phrases[0].get("health_domain") or {})
+                    sem = {**sem, "domain": health_domain.get("domain")}
+            return sem
+        # Fallback: original response shape (HTTP mode against older server)
         return self.raw.get("semantic")
 
     @property
     def actions_taken(self) -> Any:
+        # Dev branch uses metadata_payload; fall back to legacy actions_taken key
+        meta = self.raw.get("metadata_payload")
+        if meta is not None:
+            return meta
         return self.raw.get("actions_taken")
 
     @property

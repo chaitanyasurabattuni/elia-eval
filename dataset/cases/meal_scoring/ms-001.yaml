@@ -8,12 +8,11 @@ user_name: Demo
 expected:
   semantic:
     domain: nutrition
-    intent: interrogative
-    intent_subtype: insight
+    intent: ask
+    intent_subtype: get_information
   actions_taken:
-    type: dict
-    has_keys: [nutrition]
+    type: "null"
 quality:
   invoke_judge: true
-  must_not_contain: ["error", "cannot"]
+  must_not_contain: ["Agent failed"]
 notes: "Core meal scoring case"

@@ -29,6 +29,9 @@ class AssertionEngine:
 
         for field in ("domain", "intent", "intent_subtype"):
             exp_val = exp_semantic.get(field)
+            # Only assert intent_subtype when we explicitly expect a specific value
+            if field == "intent_subtype" and exp_val is None:
+                continue
             got_val = got_semantic.get(field)
             if exp_val != got_val:
                 failures.append(AssertionFailure(

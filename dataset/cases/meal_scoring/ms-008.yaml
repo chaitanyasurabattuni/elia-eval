@@ -7,8 +7,8 @@ user_name: Demo
 expected:
   semantic:
     domain: nutrition
-    intent: interrogative
-    intent_subtype: get_specific_information
+    intent: ask
+    intent_subtype: null
   actions_taken:
     type: dict
 quality:

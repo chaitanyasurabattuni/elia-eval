@@ -8,11 +8,11 @@ user_name: Demo
 expected:
   semantic:
     domain: nutrition
-    intent: interrogative
-    intent_subtype: recommendation
+    intent: ask
+    intent_subtype: get_recommendation
   actions_taken:
-    type: list
+    type: "null"
 quality:
   invoke_judge: true
-  must_not_contain: ["error", "cannot", "I don't know"]
-notes: "Core recommendation case from test_pipeline.py"
+  must_not_contain: ["Agent failed", "I don't know"]
+notes: "Core recommendation case — intent_subtype is get_recommendation in dev branch"

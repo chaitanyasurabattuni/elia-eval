@@ -19,7 +19,7 @@
           "required": ["domain", "intent"],
           "properties": {
             "domain": { "type": "string" },
-            "intent": { "type": "string", "enum": ["declarative", "interrogative", "action_request", "edit"] },
+            "intent": { "type": "string", "enum": ["log", "ask", "command", "edit"] },
             "intent_subtype": { "type": ["string", "null"] }
           }
         },

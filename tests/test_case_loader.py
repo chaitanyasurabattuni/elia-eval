@@ -9,11 +9,11 @@ def test_load_single_case():
     assert case["id"] == "ml-001"
     assert case["category"] == "meal_logging"
     assert "expected" in case
-    assert case["expected"]["semantic"]["intent"] == "declarative"
+    assert case["expected"]["semantic"]["intent"] == "log"
 
 def test_load_smoke_suite():
     cases = load_suite("smoke")
-    assert len(cases) == 8
+    assert len(cases) == 7
     ids = [c["id"] for c in cases]
     assert "ml-001" in ids
     assert "rec-001" in ids

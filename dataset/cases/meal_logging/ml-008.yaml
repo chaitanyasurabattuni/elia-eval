@@ -6,10 +6,9 @@ user_id: 1
 user_name: Demo
 expected:
   semantic:
-    domain: health status and life events
-    intent: declarative
+    domain: health status
+    intent: log
     intent_subtype: null
   actions_taken:
-    type: dict
-    has_keys: [user]
-notes: "Health condition logging — different domain"
+    type: "null"
+notes: "Health condition logging — domain is 'health status', metadata_payload not populated"

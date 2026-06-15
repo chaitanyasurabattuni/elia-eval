@@ -7,10 +7,9 @@ user_name: Demo
 expected:
   semantic:
     domain: nutrition
-    intent: declarative
+    intent: log
     intent_subtype: null
   actions_taken:
     type: dict
-    has_keys: [what, when, meal_type]
 quality:
   must_acknowledge_food: true

@@ -7,7 +7,7 @@ user_name: Demo
 expected:
   semantic:
     domain: nutrition
-    intent: action_request
+    intent: command
     intent_subtype: null
   actions_taken:
     type: "null"

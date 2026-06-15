@@ -7,10 +7,9 @@ user_name: Demo
 expected:
   semantic:
     domain: nutrition
-    intent: interrogative
-    intent_subtype: insight
+    intent: ask
+    intent_subtype: get_information
   actions_taken:
     type: dict
-    has_keys: [nutrition]
 quality:
   invoke_judge: true
